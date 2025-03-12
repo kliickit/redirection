@@ -11,32 +11,6 @@
     <label for="url">Entrez l'URL YouTube :</label>
     <input type="text" id="url" placeholder="https://www.youtube.com/watch?v=jxxF7Vzqpx4">
 
-    <button onclick="generateDeepLink()">Générer le lien vers l'application</button>
-
-    <p>Voici le Deep Link : </p>
-    <p id="deepLink"></p>
-
-    <script>
-        function generateDeepLink() {
-            const url = document.getElementById('url').value;
-
-            // Vérifier si c'est un lien YouTube
-            if (url.includes("youtube.com/watch?v=")) {
-                const videoId = url.split("v=")[1].split("&")[0];
-                const deepLink = `youtube://watch?v=${videoId}`;
-                
-                // Afficher le deep link
-                document.getElementById('deepLink').innerText = deepLink;
-
-                // Ajouter un lien cliquable
-                const link = document.createElement('a');
-                link.href = deepLink;
-                link.innerText = 'Cliquez ici pour ouvrir dans l\'application YouTube';
-                document.body.appendChild(link);
-            } else {
-                alert("Entrez un lien YouTube valide.");
-            }
-        }
-    </script>
+    
 </body>
 </html>
