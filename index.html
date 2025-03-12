@@ -3,33 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Redirection...</title>
-    <script>
-        function getMobileOperatingSystem() {
-            var userAgent = navigator.userAgent || navigator.vendor || window.opera;
-            if (/android/i.test(userAgent)) {
-                return "android";
-            }
-            if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
-                return "ios";
-            }
-            return "unknown";
-        }
-        function redirect() {
-            var os = getMobileOperatingSystem();
-            var videoId = new URLSearchParams(window.location.search).get('videoId');
-            if (os === "android") {
-                window.location.href = "vnd.youtube://" + videoId;
-            } else if (os === "ios") {
-                window.location.href = "youtube://" + videoId;
-            } else {
-                window.location.href = "https://www.youtube.com/watch?v=" + videoId;
-            }
-        }
-        window.onload = redirect;
-    </script>
+    <title>Deep Link Generator</title>
 </head>
 <body>
-    <p>Redirection en cours...</p>
+    <h1>Générateur de Deep Link</h1>
+
+    <label for="url">Entrez l'URL YouTube :</label>
+    <input type="text" id="url" placeholder="https://www.youtube.com/watch?v=jxxF7Vzqpx4">
+
+    <button onclick="generateDeepLink()">Générer le lien vers l'application</button>
+
+    <p>Voici le Deep Link : </p>
+    <p id="deepLink"></p>
+
+    <script>
+        function generateDeepLink() {
+            const url = document.getElementById('url').value;
+
+            // Vérifier si c'est un lien YouTube
+            if (url.includes("youtube.com/watch?v=")) {
+                const videoId = url.split("v=")[1].split("&")[0];
+                const deepLink = `youtube://watch?v=${videoId}`;
+                
+                // Afficher le deep link
+                document.getElementById('deepLink').innerText = deepLink;
+
+                // Ajouter un lien cliquable
+                const link = document.createElement('a');
+                link.href = deepLink;
+                link.innerText = 'Cliquez ici pour ouvrir dans l\'application YouTube';
+                document.body.appendChild(link);
+            } else {
+                alert("Entrez un lien YouTube valide.");
+            }
+        }
+    </script>
 </body>
 </html>
