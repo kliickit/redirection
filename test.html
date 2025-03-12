@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Générateur de Liens Profonds</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        label, input, button {
+            display: block;
+            margin-bottom: 10px;
+        }
+        input, button {
+            padding: 10px;
+            font-size: 16px;
+        }
+        #result {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <h1>Générateur de Liens Profonds</h1>
+    <form id="linkForm">
+        <label for="videoUrl">Entrez l'URL de votre vidéo :</label>
+        <input type="url" id="videoUrl" name="videoUrl" required placeholder="https://www.youtube.com/watch?v=exemple">
+        <button type="submit">Générer le Lien Profond</button>
+    </form>
+    <div id="result" style="display:none;">
+        <p>Votre lien à placer dans la bio Instagram :</p>
+        <a id="deepLink" href="#" target="_blank"></a>
+    </div>
+
+    <script>
+        document.getElementById('linkForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const videoUrl = document.getElementById('videoUrl').value;
+            const urlParams = new URLSearchParams(new URL(videoUrl).search);
+            const videoId = urlParams.get('v');
+            if (videoId) {
+                const deepLinkUrl = `https://votresite.com/redirect/?videoId=${videoId}`;
+                document.getElementById('deepLink').href = deepLinkUrl;
+                document.getElementById('deepLink').textContent = deepLinkUrl;
+                document.getElementById('result').style.display = 'block';
+            } else {
+                alert('Veuillez entrer une URL valide de vidéo YouTube.');
+            }
+        });
+    </script>
+</body>
+</html>
