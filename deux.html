@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirection...</title>
+    <script>
+        function getMobileOperatingSystem() {
+            const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+            if (/android/i.test(userAgent)) {
+                return "android";
+            }
+            if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+                return "ios";
+            }
+            return "unknown";
+        }
+
+        function redirect() {
+            const os = getMobileOperatingSystem();
+            const urlParams = new URLSearchParams(window.location.search);
+            const videoId = urlParams.get('videoId');
+            if (videoId) {
+                if (os === "android") {
+                    window.location.href = `vnd.youtube://${videoId}`;
+                } else if (os === "ios") {
+                    window.location.href = `youtube://${videoId}`;
+                } else {
+                    window.location.href = `https://www.youtube.com/watch?v=${videoId}`;
+                }
+            } else {
+                document.body.innerHTML = '<p>Identifiant de vidéo manquant.</p>';
+            }
+        }
+
+        window.onload = redirect;
+    </script>
+</head>
+<body>
+    <p>Redirection en cours...</p>
+</body>
+</html>
