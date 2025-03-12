@@ -29,7 +29,7 @@
     <h1>Générateur de Liens Profonds</h1>
     <form id="linkForm">
         <label for="videoUrl">Entrez l'URL de votre vidéo :</label>
-        <input type="url" id="videoUrl" name="videoUrl" required placeholder="https://www.youtube.com/watch?v=exemple">
+        <input type="url" id="videoUrl" name="videoUrl" required placeholder="https://www.youtube.com/watch?v=exemple ou https://youtu.be/exemple">
         <button type="submit">Générer le Lien Profond</button>
     </form>
     <div id="result" style="display:none;">
@@ -41,8 +41,17 @@
         document.getElementById('linkForm').addEventListener('submit', function(event) {
             event.preventDefault();
             const videoUrl = document.getElementById('videoUrl').value;
-            const urlParams = new URLSearchParams(new URL(videoUrl).search);
-            const videoId = urlParams.get('v');
+            const urlElement = document.createElement('a');
+            urlElement.href = videoUrl;
+            let videoId = '';
+
+            if (urlElement.hostname === 'www.youtube.com' || urlElement.hostname === 'youtube.com') {
+                const urlParams = new URLSearchParams(urlElement.search);
+                videoId = urlParams.get('v');
+            } else if (urlElement.hostname === 'youtu.be') {
+                videoId = urlElement.pathname.slice(1);
+            }
+
             if (videoId) {
                 const deepLinkUrl = `https://votresite.com/redirect/?videoId=${videoId}`;
                 document.getElementById('deepLink').href = deepLinkUrl;
