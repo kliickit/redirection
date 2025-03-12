@@ -1,35 +1,122 @@
 <!DOCTYPE html>
- <html lang="fr">
- <head>
-     <meta charset="UTF-8">
-     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <title>Redirection...</title>
-     <script>
-         function getMobileOperatingSystem() {
-             var userAgent = navigator.userAgent || navigator.vendor || window.opera;
-             if (/android/i.test(userAgent)) {
-                 return "android";
-             }
-             if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
-                 return "ios";
-             }
-             return "unknown";
-         }
-         function redirect() {
-             var os = getMobileOperatingSystem();
-             var videoId = new URLSearchParams(window.location.search).get('videoId');
-             if (os === "android") {
-                 window.location.href = "vnd.youtube://" + videoId;
-             } else if (os === "ios") {
-                 window.location.href = "youtube://" + videoId;
-             } else {
-                 window.location.href = "https://www.youtube.com/watch?v=" + videoId;
-             }
-         }
-         window.onload = redirect;
-     </script>
- </head>
- <body>
-     <p>Redirection en cours...</p>
- </body>
- </html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page de Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        header, footer {
+            background-color: #f8f8f8;
+            padding: 10px;
+            text-align: center;
+        }
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        nav ul li {
+            display: inline;
+            margin: 0 10px;
+        }
+        section {
+            margin-bottom: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Bienvenue sur ma page de test</h1>
+        <nav>
+            <ul>
+                <li><a href="#section1">Section 1</a></li>
+                <li><a href="#section2">Section 2</a></li>
+                <li><a href="#section3">Section 3</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="section1">
+            <h2>Section 1 : Introduction</h2>
+            <p>Ceci est un paragraphe d'introduction. Vous pouvez y ajouter du texte pour tester l'affichage.</p>
+        </section>
+
+        <section id="section2">
+            <h2>Section 2 : Contenu principal</h2>
+            <p>Voici une liste à puces :</p>
+            <ul>
+                <li>Élément 1</li>
+                <li>Élément 2</li>
+                <li>Élément 3</li>
+            </ul>
+            <p>Et une liste numérotée :</p>
+            <ol>
+                <li>Premier élément</li>
+                <li>Deuxième élément</li>
+                <li>Troisième élément</li>
+            </ol>
+        </section>
+
+        <section id="section3">
+            <h2>Section 3 : Tableau et formulaire</h2>
+            <h3>Tableau d'exemple</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Âge</th>
+                        <th>Ville</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Jean Dupont</td>
+                        <td>30</td>
+                        <td>Paris</td>
+                    </tr>
+                    <tr>
+                        <td>Marie Curie</td>
+                        <td>35</td>
+                        <td>Lyon</td>
+                    </tr>
+                    <tr>
+                        <td>Albert Einstein</td>
+                        <td>40</td>
+                        <td>Marseille</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Formulaire de contact</h3>
+            <form action="#" method="post">
+                <label for="nom">Nom :</label><br>
+                <input type="text" id="nom" name="nom"><br><br>
+                <label for="email">Email :</label><br>
+                <input type="email" id="email" name="email"><br><br>
+                <label for="message">Message :</label><br>
+                <textarea id="message" name="message"></textarea><br><br>
+                <input type="submit" value="Envoyer">
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Ma Page de Test</p>
+    </footer>
+</body>
+</html>
